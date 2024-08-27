@@ -1,0 +1,83 @@
+<div class="relative h-screen overflow-y-auto overflow-x-hidden bg-plain-muted text-dark dark:bg-dark-2 dark:text-light">
+  <div class="mx-auto flex max-w-screen-2xl flex-col justify-between gap-4 p-4 lg:gap-6 lg:p-6">
+    <!-- Header -->
+    <header class="sticky top-0 z-50">
+      <app-header></app-header>
+    </header>
+    <!-- Header end -->
+
+
+    <main class="grid grid-cols-1 gap-4 lg:grid-cols-3 lg:gap-6">
+      <!-- Intro -->
+      <app-user-card></app-user-card>
+
+      <!-- Blog -->
+      <div class="rounded-2xl bg-white p-6 shadow dark:bg-dark dark:shadow-dark lg:col-span-2 lg:p-10">
+        <div class="">
+          <h1 #header class="text-3xl font-semibold leading-tight text-dark dark:text-light lg:text-[40px] lg:leading-tight">
+            My Recent Article and Publications
+          </h1>
+          <p class="mt-4 text-lg text-muted dark:text-light/70">
+            I'm here to help if you're searching for a product designer to bring
+            your idea to life or a design partner to help take your business to the
+            next level.
+          </p>
+        </div>
+
+        <!-- Blog -->
+        <div class="mt-10 lg:mt-14">
+          <div class="grid grid-cols-1 gap-x-6 gap-y-10 md:grid-cols-2">
+            <ng-container *ngFor="let blog of blogs | paginate: { itemsPerPage: 4, currentPage: p }">
+              <div >
+                <div (click)="checkBlog(blog.id)" class="relative cursor-pointer">
+                  <a class="group block aspect-6/4 overflow-hidden rounded-lg">
+                    <img title="image" [src]="blog.img" alt="blog_image" class="h-full w-full rounded-lg object-cover transition duration-700 group-hover:scale-105">
+                  </a>
+
+                  <!-- Tags -->
+                  <div class="absolute bottom-4 left-4 flex flex-wrap gap-2">
+                    <a href="#" class="inline-flex items-center justify-center gap-2 rounded bg-white px-2 py-1 text-center text-xs leading-none text-primary shadow transition hover:bg-primary hover:text-white">
+                      {{blog.category}}
+                    </a>
+                  </div>
+                </div>
+                <div class="mt-6 cursor-pointer">
+                  <h2 class="text-xl font-medium xl:text-2xl">
+                    <a (click)="checkBlog(blog.id)" class="inline-block text-dark transition hover:text-primary dark:text-light/70 dark:hover:text-primary">
+                      {{blog.name}}
+                    </a>
+                  </h2>
+
+                  <ul class="mt-4 flex flex-wrap items-center gap-2">
+                    <li class="relative text-sm text-muted/50 before:mr-1 before:content-['\2022'] dark:text-muted">
+                      {{blog.time}} read
+                    </li>
+                    <li class="relative text-sm text-muted/50 before:mr-1 before:content-['\2022'] dark:text-muted">
+                      {{blog.datePosted}}
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </ng-container>
+          </div>
+
+          <!-- Pagination -->
+          <div class="pagination-tab flex justify-center">
+            <pagination-controls class="my-custom-pagination" (pageChange)="p = $event; scrollToHeader()"></pagination-controls>
+          </div>
+          <!-- End Pagination -->
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="text-center">
+      <p class="text-sm dark:text-light/70">
+        &#64; BentoFolio 2023, Design By
+        <a href="#" class="inline-block border-b border-b-transparent text-primary transition hover:border-b-primary hover:text-blue-600">
+          MarvelTheme
+        </a>
+      </p>
+    </footer>
+  </div>
+</div>

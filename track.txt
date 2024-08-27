@@ -1,0 +1,3 @@
+in app component is done
+in pages : home is done
+           about is done
